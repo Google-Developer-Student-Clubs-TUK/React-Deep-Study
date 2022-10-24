@@ -9,7 +9,8 @@ describe("<App />", () => {
     expect(linkElement).toBeInTheDocument();
 
 
-    // DOM 노드의 직접 접근해서 조작하는건 권장되지 않음.
+    // querySelector 등의 메서드로 DOM 노드의 직접 접근해서 조작하는건 권장되지 않음.
+    // 코드 가독성도 떨어질뿐만 아니라 에러가 빈번하게 발생함
     // expect(container.getElementsByClassName("App-logo")).toHaveLength(1);
     expect(screen.getAllByAltText("logo")).toHaveLength(1);
 
