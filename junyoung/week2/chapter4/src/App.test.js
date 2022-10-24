@@ -7,7 +7,7 @@ describe('<App />', () => {
       expect(container.getElementsByClassName('App-logo'))
       .toHaveLength(1);//App-logo에 해당하는 한개의 html요소 존재하는지
       expect(container.getElementsByClassName('App-logo')[0])
-      .toHaveAttribute(
+      .toHaveAttribute(//해당이미지가 실제로 우리가 원하는 이미지를 보여주는지 판단
         'src',
         'logo.svg'
       );
