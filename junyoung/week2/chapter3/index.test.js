@@ -3,7 +3,7 @@ const { sum, range, person, toggle } = require('./index');
 
 describe('test index.js file', () => {
     it('sums 1 + 2 to equal 3', () => {
-        expect(sum(1,2)).toBe(3);
+        expect(sum(1,2)).toBe(3); //toBe: 단순비교메소드
     });
 
     it('has 2', () => {//toContain: 배열비교메소드
