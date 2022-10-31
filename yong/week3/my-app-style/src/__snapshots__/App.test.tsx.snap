@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App /> renders component correctly 1`] = `
+<div>
+  <div
+    class="sc-bcXHqe iAIzKk"
+  >
+    <header
+      class="sc-gswNZR hKzNXl"
+    >
+      <img
+        alt="logo"
+        class="sc-dkrFOg JzqnN"
+        src="logo.svg"
+      />
+      <p>
+        Edit 
+        <code>
+          src/App.tsx
+        </code>
+         and save to reload.
+      </p>
+      <a
+        class="sc-hLBbgP dIlElw"
+        href="https://reactjs.org"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Learn React
+      </a>
+    </header>
+  </div>
+</div>
+`;
