@@ -1,64 +1,72 @@
-import React from 'react';
-import logo from './logo.svg';
-import Styled, {keyframes} from 'styled-components';
+import React, { useState } from 'react';
+import Styled from 'styled-components';
+
+import { Button, Input, ToDoItem } from 'Components';
 
 const Container = Styled.div`
-  text-align: center;
-`
-const Header = Styled.header`
-  background-color: #282c34 !important;
   min-height: 100vh;
+  background-color: #EEEEEE;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-direction: column;
 `;
-
-const spin = keyframes`
-  from {
-      transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+const Contents = Styled.div`
+  display: flex;
+  background-color: #FFFFFF;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 `;
-
-const AppLink = Styled.a`
-  color: #61dafb;
+const ToDoListContainer = Styled.div`
+  min-width: 350px;
+  height: 400px;
+  overflow-y: scroll;
+  border: 1px solid #BDBDBD;
+  margin-bottom: 20px;
 `;
-
-const AppLogo = Styled.img`
-  height: 40vmin;
-  pointer-events: none;
-  @media (prefers-reduced-motion: no-preference) {
-    animation: ${spin} infinite 20s linear;
-  }
+const InputContainer = Styled.div`
+  display: flex;
 `;
 
 function App() {
+  const [toDo, setToDo] = useState('');//의미: 할 일 데이터 추가
+  const [toDoList, setToDoList] = useState<string[]>([]);
+  //할 일 목록 데이터
+  // 초기값:배열 + 배열의 문자형인걸 <>을 통해 타입지정해준다
+
+  const addToDo = (): void => {
+    if (toDo) {
+      setToDoList([...toDoList, toDo]);//... : 전개구문 -> 모든데이터복사
+      setToDo('');
+    }
+  };
+
+  const deleteToDo = (index: number): void => {
+    let list = [...toDoList];
+    list.splice(index, 1);
+    setToDoList(list);
+  };
+
   return (
-    // <div className="App">
     <Container>
-      {/* <header className="App-header"> */}
-      <Header>
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        <AppLogo src={logo} alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <AppLink
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </AppLink>
-      </Header>
-      {/* </header> */}
+      <Contents>
+        <ToDoListContainer data-testid='toDoList'>
+          {toDoList.map((item, index) => (
+            <ToDoItem key={item} label={item} onDelete={() => deleteToDo(index)} />
+          ))}
+        </ToDoListContainer>
+        <InputContainer>
+          <Input
+            placeholder="할 일을 입력해 주세요"
+            value={toDo}
+            onChange={(text) => setToDo(text)}
+          />
+          <Button label="추가" onClick={addToDo} />
+        </InputContainer>
+      </Contents>
     </Container>
-    // </div>
   );
 }
 

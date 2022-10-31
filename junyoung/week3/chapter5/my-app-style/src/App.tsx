@@ -7,7 +7,7 @@ const Container = Styled.div`
 `;
 
 const Header = Styled.header`
-  background-color: #282c34 !important;
+  background-color: #282c34 !important;//강제표시를 의미
   min-height: 100vh;
   display: flex;
   flex-direction: column;
