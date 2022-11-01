@@ -35,7 +35,7 @@ interface Props { //뒤에 ?는 필요할때만 전달, ?없는건 필수!!
 
 export const Button = ({//App.tsx에서 {Button} 으로 가져올수있는이유
     label,
-    backgroundColor = '#304FFE',
+    backgroundColor = '#304FFE',//기본버튼 설정
     hoverColor = '#1E40FF',
     onClick,
 }: Props) => {

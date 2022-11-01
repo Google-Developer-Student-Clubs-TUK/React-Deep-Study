@@ -55,15 +55,15 @@ function App() {
         <ToDoListContainer data-testid='toDoList'>
           {toDoList.map((item, index) => (
             <ToDoItem key={item} label={item} onDelete={() => deleteToDo(index)} />
-          ))}
+          ))} {/* 공통 컴포넌트 */}
         </ToDoListContainer>
         <InputContainer>
-          <Input
+          <Input //공통 컴포넌트
             placeholder="할 일을 입력해 주세요"
             value={toDo}
             onChange={(text) => setToDo(text)}
           />
-          <Button label="추가" onClick={addToDo} />
+          <Button label="추가" onClick={addToDo} /> {/* 공통 컴포넌트*/}
         </InputContainer>
       </Contents>
     </Container>
