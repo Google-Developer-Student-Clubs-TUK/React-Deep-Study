@@ -4,7 +4,7 @@ import Styled from 'styled-components';
 import { Button, Input, ToDoItem } from 'Components';
 
 const Container = Styled.div`
-  min-height: 100vh;
+  min-height: 100vh;//parent element에 의존 X
   background-color: #EEEEEE;
   display: flex;
   align-items: center;

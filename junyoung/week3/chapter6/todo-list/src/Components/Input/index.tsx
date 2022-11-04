@@ -2,7 +2,7 @@ import React from 'react';
 import Styled from 'styled-components';
 
 const InputBox = Styled.input`
-    flex: 1;
+    flex: 1; //화면비율에따라 유연하게 늘거나 줄어들수있다
     font-size: 16px;
     padding: 10px 10px;
     border-radius: 8px;
