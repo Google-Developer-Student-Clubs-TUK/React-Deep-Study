@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Styled from 'styled-components';
 
 const InputBox = Styled.input`
@@ -16,16 +16,33 @@ interface Props {
   readonly onChange?: (text: string) => void;
 }
 
-export const Input = ({ placeholder, value, onChange }: Props) => {
-  return (
-    <InputBox
-      placeholder={placeholder}
-      value={value}
-      onChange={(event) => {
-        if (typeof onChange === 'function') {
-          onChange(event.target.value);
-        }
-      }}
-    />
-  );
-};
+// export const Input = ({ placeholder, value, onChange }: Props) => {
+//   return (
+//     <InputBox
+//       placeholder={placeholder}
+//       value={value}
+//       onChange={(event) => {
+//         if (typeof onChange === 'function') {
+//           onChange(event.target.value);
+//         }
+//       }}
+//     />
+//   );
+// };
+
+export class Input extends Component<Props> {
+  render() {
+    const { placeholder, value, onChange } = this.props;
+    return (
+      <InputBox
+        placeholder={placeholder}
+        value={value}
+        onChange={(event) => {
+          if (typeof onChange === 'function') {
+            onChange(event.target.value);
+          }
+        }}
+      />
+    );
+  }
+}
