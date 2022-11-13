@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Styled from 'styled-components';
 
 import { Button, Input, ToDoItem } from 'Components';
+//컴포넌트만 가져오기 위해 사용
+//export const Button , export const Input
 
 const Container = Styled.div`
   min-height: 100vh;//parent element에 의존 X

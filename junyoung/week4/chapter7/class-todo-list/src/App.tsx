@@ -50,11 +50,11 @@ class App extends Component<Props, State> {
       error: false,
     };
   }
-
+  //클래스 함수로 정의 private or public중 하나로
   private addToDo = (): void => {
     const { toDo, toDoList } = this.state;
     if (toDo) {
-      this.setState({
+      this.setState({//this.setState라는 함수명 사용하기 = setState
         toDo: '',
         toDoList: [...toDoList, toDo],
       });
