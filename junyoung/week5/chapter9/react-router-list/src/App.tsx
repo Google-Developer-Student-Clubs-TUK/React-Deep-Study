@@ -1,6 +1,6 @@
 import React from 'react';
 import Styled from 'styled-components';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route , BrowserRouter as Router} from 'react-router-dom';
 import { PageHeader } from 'Components';
 
 import { ToDoListProvider } from 'Contexts';
@@ -25,7 +25,7 @@ function App() { //v6 버전으로 작성 정 안되면 v5 버전으로 작성
             <Route path="/" element={<List />} />
             <Route path="/add" element={<Add />} />
             <Route path="/detail/:id" element={<Detail />} />
-            <Route element={<NotFound />} />
+            <Route path="*" element={<NotFound />} />
         </Routes>{/* :id에서 id는 일종의 변수명이야 */}
       </Container>
     </ToDoListProvider>

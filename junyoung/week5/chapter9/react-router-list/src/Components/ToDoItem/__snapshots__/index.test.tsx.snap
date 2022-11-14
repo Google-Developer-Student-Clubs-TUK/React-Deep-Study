@@ -42,17 +42,20 @@ exports[`<ToDoItem /> renders component correctly 1`] = `
   flex: 1;
   font-size: 16px;
   margin-right: 20px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 <div>
   <div
     class="c0"
   >
-    <div
+    <a
       class="c1"
+      href="/detail/1"
     >
       default value
-    </div>
+    </a>
     <div
       class="c2"
     >
