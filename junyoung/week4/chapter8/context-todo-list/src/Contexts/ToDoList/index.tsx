@@ -7,7 +7,7 @@ interface Context {
 }
 
 const ToDoListContext = createContext<Context>({
-  toDoList: [],//타입스크립트로 지정한 타입들의 초기값 지정해줘야함
+  toDoList: [],//컨텍스트 만들때 타입스크립트로 지정한 타입들의 초기값 지정해줘야함
   addToDo: (): void => {},
   deleteToDo: (): void => {},
 });
@@ -43,8 +43,8 @@ const ToDoListProvider = ({ children }: Props): JSX.Element => {//최상위 공�
 
   return (
     <ToDoListContext.Provider
-      value={{
-        toDoList,
+      value={{//Provider통하여 Context의 값 정할수 있다.
+        toDoList,//이렇게 설정해야 Provider에 감싸진 컴포넌트중 어디서든지 사용가능
         addToDo,
         deleteToDo,
       }}>
