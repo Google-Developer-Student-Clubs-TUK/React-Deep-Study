@@ -13,7 +13,7 @@ describe('<Add />', () => {
     history.push('/add');
 
     const { container } = render(
-      <Router history={history}>
+      <Router location={history.location} navigator={history}>
         <Add />
       </Router>,
     );
@@ -39,8 +39,9 @@ describe('<Add />', () => {
         </ToDoListProvider>
       );
     };
-    render(
-      <Router history={history}>
+
+    const { rerender } = render(
+      <Router location={history.location} navigator={history}>
         <TestComponent />
       </Router>,
     );
@@ -53,6 +54,12 @@ describe('<Add />', () => {
 
     fireEvent.change(input, { target: { value: 'New ToDo' } });
     fireEvent.click(button);
+
+    rerender(
+      <Router location={history.location} navigator={history}>
+        <TestComponent />
+      </Router>,
+    );
 
     expect(pathName.textContent).toBe('/');
     expect(localStorage.getItem('ToDoList')).toBe('["New ToDo"]');

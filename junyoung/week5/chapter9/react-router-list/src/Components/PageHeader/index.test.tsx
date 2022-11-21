@@ -13,7 +13,7 @@ describe('<PageHeader />', () => {
     history.push('/');
 
     const { container } = render(
-      <Router history={history}>
+      <Router location={history.location} navigator={history}>
         <PageHeader />
       </Router>,
     );
@@ -31,7 +31,7 @@ describe('<PageHeader />', () => {
     history.push('/add');
 
     render(
-      <Router history={history}>
+      <Router location={history.location} navigator={history}>
         <PageHeader />
       </Router>,
     );
@@ -48,7 +48,7 @@ describe('<PageHeader />', () => {
     history.push('/detail/1');
 
     render(
-      <Router history={history}>
+      <Router location={history.location} navigator={history}>
         <PageHeader />
       </Router>,
     );
@@ -65,7 +65,7 @@ describe('<PageHeader />', () => {
     history.push('/not_found');
 
     render(
-      <Router history={history}>
+      <Router location={history.location} navigator={history}>
         <PageHeader />
       </Router>,
     );
@@ -81,14 +81,20 @@ describe('<PageHeader />', () => {
     const history = createMemoryHistory();
     history.push('/not_found');
 
-    render(
-      <Router history={history}>
+    const { rerender } = render(
+      <Router location={history.location} navigator={history}>
         <PageHeader />
       </Router>,
     );
 
     const goBack = screen.getByText('돌아가기');
     fireEvent.click(goBack);
+
+    rerender(
+      <Router location={history.location} navigator={history}>
+        <PageHeader />
+      </Router>,
+    );
 
     const label = screen.getByText('할 일 목록');
     expect(label).toBeInTheDocument();

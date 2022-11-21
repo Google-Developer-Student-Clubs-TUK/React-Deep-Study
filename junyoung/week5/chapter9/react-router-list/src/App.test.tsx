@@ -11,7 +11,7 @@ describe('<App />', () => {
     history.push('/');
 
     const { container } = render(
-      <Router history={history}>
+      <Router location={history.location} navigator={history}>
         <App />
       </Router>,
     );
@@ -33,14 +33,20 @@ describe('<App />', () => {
     const history = createMemoryHistory();
     history.push('/');
 
-    const { container } = render(
-      <Router history={history}>
+    const { container, rerender } = render(
+      <Router location={history.location} navigator={history}>
         <App />
       </Router>,
     );
 
     const addButton = screen.getByText('+');
     fireEvent.click(addButton);
+
+    rerender(
+      <Router location={history.location} navigator={history}>
+        <App />
+      </Router>,
+    );
 
     const header = screen.getByText('할 일 추가');
     expect(header).toBeInTheDocument();
@@ -54,6 +60,13 @@ describe('<App />', () => {
     expect(container).toMatchSnapshot();
 
     fireEvent.click(goBack);
+
+    rerender(
+      <Router location={history.location} navigator={history}>
+        <App />
+      </Router>,
+    );  
+
     expect(header.textContent).toBe('할 일 목록');
     const toDoList = screen.getByTestId('toDoList');
     expect(toDoList).toBeInTheDocument();
@@ -65,8 +78,8 @@ describe('<App />', () => {
     const history = createMemoryHistory();
     history.push('/');
 
-    const { container } = render(
-      <Router history={history}>
+    const { container, rerender } = render(
+      <Router location={history.location} navigator={history}>
         <App />
       </Router>,
     );
@@ -74,6 +87,12 @@ describe('<App />', () => {
     const toDoItem = screen.getByText('ToDo 1');
     expect(toDoItem).toBeInTheDocument();
     fireEvent.click(toDoItem);
+
+    rerender(
+      <Router location={history.location} navigator={history}>
+        <App />
+      </Router>,
+    );
 
     const header = screen.getByText('할 일 상세');
     expect(header).toBeInTheDocument();
@@ -87,6 +106,13 @@ describe('<App />', () => {
     expect(container).toMatchSnapshot();
 
     fireEvent.click(goBack);
+
+    rerender(
+      <Router location={history.location} navigator={history}>
+        <App />
+      </Router>,
+    );  
+
     expect(header.textContent).toBe('할 일 목록');
     const toDoList = screen.getByTestId('toDoList');
     expect(toDoList).toBeInTheDocument();
@@ -94,10 +120,10 @@ describe('<App />', () => {
 
   it('shows Not Found page if the user enters the wrong URL, and go back to List page', () => {
     const history = createMemoryHistory();
-    history.push('/foo');//정의하지 않은 URL의미
+    history.push('/foo');
 
-    const { container } = render(
-      <Router history={history}>
+    const { container, rerender } = render(
+      <Router location={history.location} navigator={history}>
         <App />
       </Router>,
     );
@@ -112,6 +138,14 @@ describe('<App />', () => {
     expect(container).toMatchSnapshot();
 
     fireEvent.click(goBack);
+
+    rerender(
+      <Router location={history.location} navigator={history}>
+        <App />
+      </Router>,
+    );  
+
+
     expect(header.textContent).toBe('할 일 목록');
     const toDoList = screen.getByTestId('toDoList');
     expect(toDoList).toBeInTheDocument();
@@ -121,8 +155,8 @@ describe('<App />', () => {
     const history = createMemoryHistory();
     history.push('/');
 
-    render(
-      <Router history={history}>
+    const { rerender } = render(
+      <Router location={history.location} navigator={history}>
         <App />
       </Router>,
     );
@@ -130,10 +164,23 @@ describe('<App />', () => {
     const addButton = screen.getByText('+');
     fireEvent.click(addButton);
 
+    rerender(
+      <Router location={history.location} navigator={history}>
+        <App />
+      </Router>,
+    );
+
     const input = screen.getByPlaceholderText('할 일을 입력해 주세요');
     const button = screen.getByText('추가');
     fireEvent.change(input, { target: { value: 'New ToDo' } });
     fireEvent.click(button);
+
+
+    rerender(
+      <Router location={history.location} navigator={history}>
+        <App />
+      </Router>,
+    );  
 
     const header = screen.getByText('할 일 목록');
     expect(header).toBeInTheDocument();
@@ -147,8 +194,8 @@ describe('<App />', () => {
     const history = createMemoryHistory();
     history.push('/');
 
-    render(
-      <Router history={history}>
+    const { rerender } = render(
+      <Router location={history.location} navigator={history}>
         <App />
       </Router>,
     );
@@ -159,6 +206,14 @@ describe('<App />', () => {
     expect(deleteButton).toBeInTheDocument();
 
     fireEvent.click(deleteButton);
+
+    rerender(
+      <Router location={history.location} navigator={history}>
+        <App />
+      </Router>,
+    );  
+
+
     expect(toDoItem).not.toBeInTheDocument();
     expect(deleteButton).not.toBeInTheDocument();
     expect(localStorage.getItem('ToDoList')).toBe('[]');
@@ -170,20 +225,36 @@ describe('<App />', () => {
     const history = createMemoryHistory();
     history.push('/');
 
-    render(
-      <Router history={history}>
+    const { rerender } = render(
+      <Router location={history.location} navigator={history}>
         <App />
       </Router>,
     );
 
     const toDoItem = screen.getByText('ToDo 1');
     expect(toDoItem).toBeInTheDocument();
+
     fireEvent.click(toDoItem);
+
+
+    rerender(
+      <Router location={history.location} navigator={history}>
+        <App />
+      </Router>,
+    );  
+
+
     const header = screen.getByText('할 일 상세');
     expect(header).toBeInTheDocument();
 
     const deleteButton = screen.getByText('삭제');
     fireEvent.click(deleteButton);
+
+    rerender(
+      <Router location={history.location} navigator={history}>
+        <App />
+      </Router>,
+    );
 
     expect(header.textContent).toBe('할 일 목록');
     const toDoList = screen.getByTestId('toDoList');

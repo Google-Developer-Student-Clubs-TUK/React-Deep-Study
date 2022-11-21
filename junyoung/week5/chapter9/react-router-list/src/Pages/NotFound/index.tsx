@@ -6,5 +6,5 @@ const Container = Styled.div`
 `;
 
 export const NotFound = () => {
-    return <Container>Not Found 👼🏻</Container>;
+    return <Container>Not Found 😿</Container>;
 };

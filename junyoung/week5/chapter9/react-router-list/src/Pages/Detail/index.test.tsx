@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, useLocation } from 'react-router-dom';
+import { Router, Route, Routes, useLocation } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { render, screen, fireEvent } from '@testing-library/react';
 import 'jest-styled-components';
@@ -15,10 +15,10 @@ describe('<Detail />', () => {
 
     const { container } = render(
       <ToDoListProvider>
-        <Router history={history}>
-          <Route path="/detail/:id">
-            <Detail />
-          </Route>
+        <Router location={history.location} navigator={history}>
+          <Routes>
+            <Route path="/detail/:id" element={<Detail />} />
+          </Routes>
         </Router>
       </ToDoListProvider>,
     );
@@ -43,13 +43,13 @@ describe('<Detail />', () => {
       return <div>{pathname}</div>;
     };
 
-    render(
+    const { rerender } = render(
       <ToDoListProvider>
-        <Router history={history}>
+        <Router location={history.location} navigator={history}>
           <TestComponent />
-          <Route path="/detail/:id">
-            <Detail />
-          </Route>
+          <Routes>
+            <Route path="/detail/:id" element={<Detail />} />
+          </Routes>
         </Router>
       </ToDoListProvider>,
     );
@@ -63,6 +63,15 @@ describe('<Detail />', () => {
     expect(button).toBeInTheDocument();
 
     fireEvent.click(button);
+
+    rerender(
+      <ToDoListProvider>
+        <Router location={history.location} navigator={history}>
+          <TestComponent />
+        </Router>
+      </ToDoListProvider>,
+    );  
+
 
     expect(url.textContent).toBe('/');
     expect(toDoItem).not.toBeInTheDocument();

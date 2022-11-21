@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, useLocation } from 'react-router-dom';
+import { Router, useLocation , Routes, Route } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { render, screen, fireEvent } from '@testing-library/react';
 import 'jest-styled-components';
@@ -16,11 +16,15 @@ describe('<List />', () => {
 
     const { container } = render(
       <ToDoListProvider>
-        <Router history={history}>
-          <List />
+        <Router location={history.location} navigator={history}>
+          <Routes>
+            <Route path="/" element={<List />} />
+          </Routes>
         </Router>
       </ToDoListProvider>,
     );
+
+
     {/* 3개 입력했을경우 테스트 작성 */}
     const toDoItem1 = screen.getByText('ToDo 1');
     expect(toDoItem1).toBeInTheDocument();
@@ -50,8 +54,10 @@ describe('<List />', () => {
 
     render(
       <ToDoListProvider>
-        <Router history={history}>
-          <List />
+        <Router location={history.location} navigator={history}>
+          <Routes>
+            <Route path="/" element={<List />} />
+          </Routes>
         </Router>
       </ToDoListProvider>,
     );
@@ -74,11 +80,13 @@ describe('<List />', () => {
 
     localStorage.setItem('ToDoList', '["ToDo 1", "ToDo 2", "ToDo 3"]');
 
-    render(
+    const { rerender } = render(
       <ToDoListProvider>
-        <Router history={history}>
+        <Router location={history.location} navigator={history}>
           <TestComponent />
-          <List />
+          <Routes>
+            <Route path="/" element={<List />} />
+          </Routes>
         </Router>
       </ToDoListProvider>,
     );
@@ -89,7 +97,16 @@ describe('<List />', () => {
     const toDoItem1 = screen.getByText('ToDo 2');
     expect(toDoItem1.getAttribute('href')).toBe('/detail/1');
     fireEvent.click(toDoItem1);
-    //버튼을 누르면 detail 페이지로 잘 이동하는지
+  
+
+    rerender(
+      <ToDoListProvider>
+        <Router location={history.location} navigator={history}>
+          <TestComponent />
+        </Router>
+      </ToDoListProvider>,
+    );
+
     expect(url.textContent).toBe('/detail/1');
   });
 
@@ -102,9 +119,9 @@ describe('<List />', () => {
     const history = createMemoryHistory();
     history.push('/');
 
-    render(
+    const { rerender } = render(
       <ToDoListProvider>
-        <Router history={history}>
+        <Router location={history.location} navigator={history}>
           <TestComponent />
           <List />
         </Router>
@@ -116,6 +133,15 @@ describe('<List />', () => {
 
     const addButton = screen.getByText('+');
     fireEvent.click(addButton);
+
+    rerender(
+      <ToDoListProvider>
+        <Router location={history.location} navigator={history}>
+          <TestComponent />
+          <List />
+        </Router>
+      </ToDoListProvider>,
+    );  
 
     expect(url.textContent).toBe('/add');
   });
